@@ -10,12 +10,14 @@ extern "C" {
     fn ppma_write(file_out_name: *const c_char, xsize: i32, ysize: i32, r: *mut i32, g: *mut i32, b: *mut i32);
 }
 
+#[derive(Clone, Copy)]
 pub struct Pixel {
     pub red: i32,
     pub green: i32,
     pub blue: i32,
 }
 
+#[derive(Clone)]
 pub struct Image {
     pub path: String,
     pub width: i32,
@@ -74,4 +76,25 @@ pub fn write_ppm(img: Image) {
         }
         ppma_write(img_name.as_ptr(), img.width, img.height, r.as_mut_ptr(), g.as_mut_ptr(), b.as_mut_ptr());
     }
+}
+
+pub fn invert(src: Image, dst: &str) {
+    
+    let mut cpy_img = Image{
+        path: String::from(dst),
+        width: src.width,
+        height: src.height,
+        pixels: Vec::new()
+    };
+
+    for p in src.pixels {
+        cpy_img.pixels.push(Pixel{
+            red: 255 - p.red,
+            green: 255 - p.green,
+            blue: 255 - p.blue,
+
+        })
+    }
+
+    write_ppm(cpy_img);
 }
