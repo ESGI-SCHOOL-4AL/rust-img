@@ -19,7 +19,7 @@ pub struct Pixel {
 }
 
 pub struct Image {
-    // TODO img path
+    pub path: String,
     pub width: i32,
     pub height: i32,
     pub pixels: Vec<Pixel>,
@@ -31,6 +31,7 @@ pub fn max(i1: i32, i2: i32) -> i32 {
 
 pub fn read_ppm() -> Image {
     let mut img = Image {
+        path: String::from(""),
         width: 0,
         height: 0,
         pixels: Vec::new()
@@ -40,7 +41,7 @@ pub fn read_ppm() -> Image {
 }
 
 pub fn write_ppm(img: Image) {
-    let img_name = CString::new("img.ppm").expect("CString::new failed");
+    let img_name = CString::new(img.path).expect("CString::new failed");
 
     unsafe {
         let size = (img.width * img.height) as usize;

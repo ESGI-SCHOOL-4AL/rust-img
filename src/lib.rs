@@ -17,6 +17,7 @@ mod tests {
 
         let size = 64;
         let mut img = ppm::Image{
+            path: String::from("img.ppm"),
             width: size,
             height: size,
             pixels: Vec::new()
