@@ -2,7 +2,6 @@
 mod ppm;
 
 extern crate libc;
-use libc::{size_t, int32_t};
 
 #[cfg(test)]
 mod tests {
@@ -12,5 +11,12 @@ mod tests {
     #[test]
     fn it_works() {
         assert_eq!(ppm::max(2.into(),3.into()), 3);
+
+        let img = ppm::Image{
+            width: 8,
+            height: 8,
+            pixels: Vec::new()
+        };
+        ppm::write_ppm(img);
     }
 }
