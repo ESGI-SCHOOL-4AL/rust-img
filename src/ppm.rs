@@ -1,5 +1,10 @@
+// #[link(name = "ppma_io")]
+// extern {
+//     fn i4_max(i1: i8, i2: i8) -> i8;
+// }
+
 #[link(name = "ppma_io")]
-extern {
+extern "C" {
     fn i4_max(i1: i8, i2: i8) -> i8;
 }
 
