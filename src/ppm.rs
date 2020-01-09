@@ -98,3 +98,24 @@ pub fn invert(src: Image, dst: &str) {
 
     write_ppm(cpy_img);
 }
+
+pub fn grayscale(src: Image, dst: &str) {
+
+    let mut cpy_img = Image{
+        path: String::from(dst),
+        width: src.width,
+        height: src.height,
+        pixels: Vec::new()
+    };
+
+    for p in src.pixels {
+        let gray = (p.red as f32 * 0.3 + p.green as f32 * 0.58 + p.blue as f32 * 0.11) as i32;
+        cpy_img.pixels.push(Pixel{
+            red: gray,
+            green: gray,
+            blue: gray,
+        })
+    }
+
+    write_ppm(cpy_img);
+}

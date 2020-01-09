@@ -49,5 +49,8 @@ mod tests {
 
         let invert_img = ppm::read_ppm("invert_src.ppm");
         ppm::invert(invert_img, "invert.ppm");
+
+        let grayscale_img = ppm::read_ppm("invert_src.ppm");
+        ppm::grayscale(grayscale_img, "grayscale.ppm");
     }
 }
