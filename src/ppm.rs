@@ -13,9 +13,9 @@ extern "C" {
 }
 
 pub struct Pixel {
-    red: i8,
-    green: i8,
-    blue: i8,
+    pub red: i32,
+    pub green: i32,
+    pub blue: i32,
 }
 
 pub struct Image {
@@ -43,9 +43,16 @@ pub fn write_ppm(img: Image) {
     let img_name = CString::new("img.ppm").expect("CString::new failed");
 
     unsafe {
-        let mut r: [c_int; 64] = [0; 64];
-        let mut g: [c_int; 64] = [0; 64];
-        let mut b: [c_int; 64] = [0; 64];
+        let size = (img.width * img.height) as usize;
+        let mut r = Vec::with_capacity(size);
+        let mut g = Vec::with_capacity(size);
+        let mut b = Vec::with_capacity(size);
+
+        for p in &img.pixels {
+            r.push(p.red);
+            g.push(p.green);
+            b.push(p.blue);
+        }
         ppma_write(img_name.as_ptr(), img.width, img.height, r.as_mut_ptr(), g.as_mut_ptr(), b.as_mut_ptr());
     }
 }
