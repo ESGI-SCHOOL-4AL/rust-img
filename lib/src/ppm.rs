@@ -49,10 +49,6 @@ pub struct Image {
     pub pixels: Vec<Pixel>,
 }
 
-pub fn max(i1: i32, i2: i32) -> i32 {
-    return unsafe { i4_max(i1, i2) };
-}
-
 pub fn read_ppm(path: &str) -> Image {
     unsafe {
         let mut img = Image {

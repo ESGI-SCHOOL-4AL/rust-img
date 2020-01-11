@@ -1,4 +1,11 @@
-/target
-**/*.rs.bk
-Cargo.lock
-*.ppm
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+*.out
+config.json
+
+.idea/
+.vscode/
