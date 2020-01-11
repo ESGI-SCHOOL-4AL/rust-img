@@ -5,7 +5,6 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/Shopify/sarama v1.19.0/go.mod h1:FVkBWblsNy7DGZRfXLU0O9RCGt5g3g3yEuWXgklEdEo=
 github.com/Shopify/toxiproxy v2.1.4+incompatible/go.mod h1:OXgGpZ6Cli1/URJOF1DMxUHB2q5Ap20/P/eIdh4G0pI=
 github.com/System-Glitch/goyave v1.0.0 h1:wmDg+BI+VqQ5ifCcjD2j5bQgfLvG/TGPlt6PGBuYv68=
-github.com/System-Glitch/goyave v1.0.0/go.mod h1:vFo+n3ZIl6F/kHh5GDXlCPcQIcIlQilujyaJL+47aVI=
 github.com/System-Glitch/goyave/v2 v2.4.0 h1:Pa4TCrwljgpqDm4gEGRtUxX9DtGSHU/wT5tsQmfPPSg=
 github.com/System-Glitch/goyave/v2 v2.4.0/go.mod h1:hjVHGvzkAfX1gjVPjGrVzXgyUMDFux+4zVlcZ52Gfd8=
 github.com/System-Glitch/goyave/v2 v2.4.1 h1:qdN90YByubC0b+AInWcNEtrp7QNt2qAhVvsNc2UEuB0=

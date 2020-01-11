@@ -9,6 +9,8 @@ import (
 	// _ "github.com/jinzhu/gorm/dialects/postgres"
 	// _ "github.com/jinzhu/gorm/dialects/sqlite"
 	// _ "github.com/jinzhu/gorm/dialects/mssql"
+
+	_ "rust-img-api/http/request"
 )
 
 func main() {
