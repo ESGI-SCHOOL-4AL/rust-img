@@ -101,7 +101,7 @@ pub fn invert(src: Image, dst: &str) {
     let arc = Arc::new(Mutex::new(image_pixels));
 
     for pixels_for_thread in splited_pixels_for_threads {
-        let pixels = Arc::new(Mutex::new(&arc));
+        let pixels = Arc::clone(&arc);
 
         let thread = thread::spawn(move || {
             let mut pixels_locked = pixels.lock().unwrap();
