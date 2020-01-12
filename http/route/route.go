@@ -24,6 +24,10 @@ func Register(router *goyave.Router) {
 	router.CORS(cors.Default())
 
 	// Register your routes here
+	router.Route("GET", "/robots.txt", func(resp *goyave.Response, req *goyave.Request) {
+		resp.File("resources/robots.txt")
+	}, nil)
+
 	router.Route("POST", "/grayscale", ppm.Grayscale, ppmrequest.Generic)
 	router.Route("POST", "/invert", ppm.Invert, ppmrequest.Generic)
 }
