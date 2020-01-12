@@ -89,29 +89,50 @@ pub fn write_ppm(img: Image) {
 }
 
 pub fn invert(src: Image, dst: &str) {
-    
-    let mut cpy_img = Image{
-        path: String::from(dst),
-        width: src.width,
-        height: src.height,
-        pixels: Vec::new()
-    };
+    let vec_size_foreach_thread: u32 = src.pixels.len() as u32 / THREAD as u32;
+    let splited_pixels_for_threads: Vec<Vec<Pixel>> = split_vec_by_thread(src.pixels, vec_size_foreach_thread);
+    let mut threads = Vec::new();
 
-    for p in src.pixels {
-        cpy_img.pixels.push(Pixel{
-            red: 255 - p.red,
-            green: 255 - p.green,
-            blue: 255 - p.blue,
+    let image_path: String = String::from(dst);
+    let image_width: i32 = src.width;
+    let image_height: i32 = src.height;
+    let image_pixels = Vec::new();
 
-        })
+    let arc = Arc::new(Mutex::new(image_pixels));
+
+    for pixels_for_thread in splited_pixels_for_threads {
+        let pixels = Arc::new(Mutex::new(&arc));
+
+        let thread = thread::spawn(move || {
+            let mut pixels_locked = pixels.lock().unwrap();
+                for p in pixels_for_thread {
+                    pixels_locked.push(Pixel{
+                        red: 255 - p.red,
+                        green: 255 - p.green,
+                        blue: 255 - p.blue,
+            
+                    })
+                }
+        });
+
+        threads.push(thread);
     }
 
-    write_ppm(cpy_img);
+    for thread in threads {
+        thread.join().unwrap();
+    }
+
+    write_ppm(Image {
+        path: image_path,
+        width: image_width,
+        height: image_height,
+        pixels: arc.lock().unwrap().to_vec(),
+    });
 }
 
 pub fn grayscale(src: Image, dst: &str) {
     let vec_size_foreach_thread: u32 = src.pixels.len() as u32 / THREAD as u32;
-    let splited_pixels_for_thread: Vec<Vec<Pixel>> = split_vec_by_thread(src.pixels, vec_size_foreach_thread);
+    let splited_pixels_for_threads: Vec<Vec<Pixel>> = split_vec_by_thread(src.pixels, vec_size_foreach_thread);
     let mut threads = Vec::new();
 
     let image_path: String = String::from(dst);
@@ -121,7 +142,7 @@ pub fn grayscale(src: Image, dst: &str) {
     
     let arc = Arc::new(Mutex::new(image_pixels));
 
-    for pixels_for_thread in splited_pixels_for_thread {
+    for pixels_for_thread in splited_pixels_for_threads {
         let pixels = Arc::clone(&arc);
 
         let thread = thread::spawn(move || {
