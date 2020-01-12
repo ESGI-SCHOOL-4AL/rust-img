@@ -1,6 +1,7 @@
 package route
 
 import (
+	"net/http"
 	"rust-img-api/http/controller/ppm"
 	"rust-img-api/http/request/ppmrequest"
 
@@ -24,6 +25,9 @@ func Register(router *goyave.Router) {
 	router.CORS(cors.Default())
 
 	// Register your routes here
+	router.Route("GET", "/", func(resp *goyave.Response, req *goyave.Request) {
+		resp.RenderHTML(http.StatusOK, "index.html", nil)
+	}, nil)
 	router.Route("GET", "/robots.txt", func(resp *goyave.Response, req *goyave.Request) {
 		resp.File("resources/robots.txt")
 	}, nil)

@@ -3,7 +3,6 @@ buildlib:
 	cp lib/target/release/libembed.so lib/
 
 build: buildlib
-	cp lib/libembed.so ./
 	go build -a -ldflags="-r ./lib"
 
 run: buildlib
