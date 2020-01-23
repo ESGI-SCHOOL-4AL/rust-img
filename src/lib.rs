@@ -50,7 +50,7 @@ mod tests {
         let mut invert_img = ppm::read_ppm("invert_src.ppm");
         ppm::invert(&mut invert_img, "invert.ppm");
 
-        let grayscale_img = ppm::read_ppm("invert_src.ppm");
-        ppm::grayscale(grayscale_img, "grayscale.ppm");
+        let mut grayscale_img = ppm::read_ppm("invert_src.ppm");
+        ppm::grayscale(&mut grayscale_img, "grayscale.ppm");
     }
 }
