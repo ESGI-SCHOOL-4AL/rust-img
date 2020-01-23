@@ -2,7 +2,6 @@ extern crate libc;
 
 use std::ffi::CString;
 use std::os::raw::{c_char};
-use std::thread;
 use rayon::iter::{IntoParallelRefMutIterator, ParallelIterator}; // 1.0.3
 
 static GREYSCALE_RED: f32 = 0.3;
@@ -12,7 +11,6 @@ static GREYSCALE_BLUE: f32 = 0.11;
 
 #[link(name = "ppma_io")]
 extern "C" {
-    fn i4_max(i1: i32, i2: i32) -> i32;
     fn ppma_read(
         input_name: *const c_char, 
         xsize: *mut i32, 
