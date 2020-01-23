@@ -4,6 +4,8 @@ use std::ffi::CString;
 use std::os::raw::{c_char, c_int};
 use std::thread;
 use std::sync::{Mutex, Arc};
+use rayon::iter::{IntoParallelRefMutIterator, ParallelIterator}; // 1.0.3
+use std::{time::Duration};
 
 static THREAD: i8 = 2;
 static GREYSCALE_RED: f32 = 0.3;
@@ -88,16 +90,12 @@ pub fn write_ppm(img: Image) {
     }
 }
 
-pub fn invert(src: Image, dst: &str) {
-    let vec_size_foreach_thread: u32 = src.pixels.len() as u32 / THREAD as u32;
-    let splited_pixels_for_threads: Vec<Vec<Pixel>> = split_vec_by_thread(src.pixels, vec_size_foreach_thread);
-    let mut threads = Vec::new();
-
+pub fn invert(src: &mut Image, dst: &str) {
     let image_path: String = String::from(dst);
     let image_width: i32 = src.width;
     let image_height: i32 = src.height;
-    let image_pixels = Vec::new();
 
+<<<<<<< Updated upstream
     let arc = Arc::new(Mutex::new(image_pixels));
 
     for pixels_for_thread in splited_pixels_for_threads {
@@ -121,12 +119,20 @@ pub fn invert(src: Image, dst: &str) {
     for thread in threads {
         thread.join().unwrap();
     }
+=======
+    src.pixels.par_iter_mut().for_each(|pixel| {
+            pixel.red = 255 - pixel.red;
+            pixel.green = 255 - pixel.green;
+            pixel.blue = 255 - pixel.blue;
+        
+    });
+>>>>>>> Stashed changes
 
     write_ppm(Image {
         path: image_path,
         width: image_width,
         height: image_height,
-        pixels: arc.lock().unwrap().to_vec(),
+        pixels: src.pixels.to_owned(),
     });
 }
 
