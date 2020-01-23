@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>PPM Filters</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <style>
+        .hero {
+            background-color: #63a4ff;
+            background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
+        }
+
+        h1 {
+            color: white !important;
+            text-shadow: 1px 1px rgba(0, 0, 0, 0.25);
+        }
+
+        .box {
+            background: white;
+            border-radius: 0.5em;
+            padding: 1rem 3rem;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        }
+
+        .btn {
+            width: 100%;
+            border: none;
+            color: white;
+            background: #00d95a;
+            text-shadow: 1px 1px rgba(0, 0, 0, 0.25);
+
+            font-size: 16px;
+            font-weight: bold;
+
+            border-radius: 0.5em;
+            padding: 1rem 3rem;
+
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+        }
+
+        .btn:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title is-1">PPM Images Filters</h1>
+                <form method="POST" class="column is-half is-offset-one-quarter" enctype="multipart/form-data">
+                    <div class="columns">
+                        <div class="column is-full">
+                            <div id="file-upload" class="box file has-name is-fullwidth">
+                                <label class="file-label">
+                                    <input class="file-input" type="file" name="image" required accept=".ppm">
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label">
+                                            Choose a file…
+                                        </span>
+                                    </span>
+                                    <span class="file-name">
+                                        No file selected.
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-half">
+                            <button type="submit" class="btn"
+                                onclick="javascript: form.action='/invert'">Invert</button>
+                        </div>
+                        <div class="column is-half">
+                            <button type="submit" class="btn"
+                                onclick="javascript: form.action='/grayscale'">Grayscale</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section class="section">
+
+    <script>
+        const fileInput = document.querySelector('#file-upload input[type=file]');
+        fileInput.onchange = () => {
+          if (fileInput.files.length > 0) {
+            const fileName = document.querySelector('#file-upload .file-name');
+            fileName.textContent = fileInput.files[0].name;
+          }
+        }
+      </script>
+</body>
+</html>
