@@ -37,8 +37,6 @@ mod tests {
 
     #[test]
     fn it_works() {
-        assert_eq!(ppm::max(2.into(),3.into()), 3);
-
         let size = 64;
         let mut img = ppm::Image{
             path: String::from("img.ppm"),
