@@ -1,5 +1,5 @@
 buildlib:
-	cd lib/ && cargo build --release
+	cd lib/ && cargo +nightly build --release
 	cp lib/target/release/libembed.so lib/
 
 build: buildlib
