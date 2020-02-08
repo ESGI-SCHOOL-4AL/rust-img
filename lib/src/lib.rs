@@ -18,8 +18,8 @@ pub extern "C" fn invert(file: *const libc::c_char, destination: *const libc::c_
     let src = cstr_to_string(file);
     let dst = cstr_to_string(destination);
 
-    let mut src_img = ppm::read_ppm(&src);
-    ppm::invert(&mut src_img, &dst);
+    let src_img = ppm::read_ppm(&src);
+    src_img.filter(src_img.invert_pixels()).save(&dst);
 }
 
 #[no_mangle]
@@ -27,8 +27,8 @@ pub extern "C" fn grayscale(file: *const libc::c_char, destination: *const libc:
     let src = cstr_to_string(file);
     let dst = cstr_to_string(destination);
 
-    let mut src_img = ppm::read_ppm(&src);
-    ppm::grayscale(&mut src_img, &dst);
+    let src_img = ppm::read_ppm(&src);
+    src_img.filter(src_img.grayscale_pixels()).save(&dst);
 }
 
 #[cfg(test)]
